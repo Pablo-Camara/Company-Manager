@@ -14,4 +14,16 @@ class UserCrudController extends ControllersUserCrudController
         }
         parent::setup();
     }
+
+    public function setupListOperation()
+    {
+        parent::setupListOperation();
+        $roleId = request()->input('role');
+
+        if ($roleId) {
+            $this->crud->addClause('whereHas', 'roles', function ($query) use ($roleId) {
+                $query->where('role_id', '=', $roleId);
+            });
+        }
+    }
 }
