@@ -14,7 +14,7 @@ Route::group([
         (array) config('backpack.base.web_middleware', 'web'),
         (array) config('backpack.base.middleware_key', 'admin')
     ),
-    'namespace'  => 'App\Http\Controllers\Admin',
+    'namespace'  => 'App\Http\Controllers',
 ], function () { // custom admin routes
     Route::crud('document', 'DocumentCrudController');
     Route::get('documents/download/{document}', 'DocumentCrudController@downloadDocument');
