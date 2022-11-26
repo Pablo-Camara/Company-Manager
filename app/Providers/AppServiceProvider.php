@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            \Backpack\PermissionManager\app\Http\Controllers\PermissionCrudController::class, //this is package controller
+            \App\Http\Controllers\DocumentCategoryCrudController::class //this should be your own controller
+        );
     }
 
     /**
@@ -23,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 }
