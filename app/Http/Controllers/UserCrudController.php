@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Backpack\PermissionManager\app\Http\Controllers\PermissionCrudController;
+use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as ControllersUserCrudController;
 
-class DocumentCategoryCrudController extends PermissionCrudController
+class UserCrudController extends ControllersUserCrudController
 {
-
     public function setup()
     {
         $user = backpack_user();
@@ -14,6 +13,5 @@ class DocumentCategoryCrudController extends PermissionCrudController
             abort(403);
         }
         parent::setup();
-        $this->crud->setRoute(backpack_url('document-categories'));
     }
 }
