@@ -25,5 +25,7 @@ class UserCrudController extends ControllersUserCrudController
                 $query->where('role_id', '=', $roleId);
             });
         }
+
+        $this->crud->addButtonFromView('top', 'import-users', 'import-users', 'end');
     }
 }
