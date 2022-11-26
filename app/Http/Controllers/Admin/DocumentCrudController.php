@@ -32,6 +32,13 @@ class DocumentCrudController extends CrudController
         CRUD::setModel(\App\Models\Document::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/document');
         CRUD::setEntityNameStrings('document', 'documents');
+
+        $user = backpack_user();
+        if (!$user->hasRole('Admin')) {
+            $this->crud->denyAccess('create');
+            $this->crud->denyAccess('update');
+            $this->crud->denyAccess('delete');
+        }
     }
 
     private function addColumns($except = []) {
@@ -77,6 +84,10 @@ class DocumentCrudController extends CrudController
         $user = backpack_user();
         if (!$user->can($document->documentCategory->name) && !$user->hasRole('Admin')) {
             abort(403);
+        }
+
+        if (!$user->hasRole('Admin')) {
+            $this->crud->removeAllButtons();
         }
 
         $this->addColumns();
