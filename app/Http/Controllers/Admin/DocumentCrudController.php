@@ -74,8 +74,8 @@ class DocumentCrudController extends CrudController
     protected function setupShowOperation () {
         $documentId = $this->crud->getCurrentEntryId();
         $document = Document::with('documentCategory')->findOrFail($documentId);
-
-        if (!backpack_user()->can($document->documentCategory->name)) {
+        $user = backpack_user();
+        if (!$user->can($document->documentCategory->name) && !$user->hasRole('Admin')) {
             abort(403);
         }
 
@@ -90,6 +90,7 @@ class DocumentCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $user = backpack_user();
         $documentCategoryId = request()->input('document_category_id');
         if ($documentCategoryId) {
             try {
@@ -98,7 +99,7 @@ class DocumentCrudController extends CrudController
                 abort(404);
             }
 
-            if (!backpack_user()->can($documentCategory->name)) {
+            if (!$user->can($documentCategory->name) && !$user->hasRole('Admin')) {
                 abort(403);
             }
 
@@ -107,11 +108,14 @@ class DocumentCrudController extends CrudController
             $this->crud->addButtonFromView('top', 'filter-document-category', 'filter-document-category', 'end');
         }
 
-        $user = backpack_user();
-        $userPermissions = $user->getAllPermissions();
-        $userPermissions = $userPermissions->pluck('id')->toArray();
 
-        $this->crud->addClause('whereIn', 'document_category_id', $userPermissions);
+        if (!$user->hasRole('Admin')) {
+            $userPermissions = $user->getAllPermissions();
+            $userPermissions = $userPermissions->pluck('id')->toArray();
+
+            $this->crud->addClause('whereIn', 'document_category_id', $userPermissions);
+        }
+
 
         $this->addColumns(['description']);
 
@@ -172,7 +176,8 @@ class DocumentCrudController extends CrudController
 
 
     public function downloadDocument(Document $document) {
-        if (!backpack_user()->can($document->documentCategory->name)) {
+        $user = backpack_user();
+        if (!$user->can($document->documentCategory->name) && !$user->hasRole('Admin')) {
             abort(403);
         }
         $disk = Storage::disk('documents');
