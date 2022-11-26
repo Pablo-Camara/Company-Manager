@@ -48,6 +48,7 @@ class DocumentCrudController extends CrudController
             ],
             [
                 'name' => 'document_category_link',
+                'label' => __('Document category'),
                 'type' => 'custom_html',
                 'value' => function ($entry) {
                     $documentCategory = DocumentCategory::findById($entry->document_category_id);
@@ -102,7 +103,13 @@ class DocumentCrudController extends CrudController
     protected function setupListOperation()
     {
         $user = backpack_user();
+        $userPermissions = $user->getAllPermissions();
+        $userPermissions = $userPermissions->pluck('id')->toArray();
+
         $documentCategoryId = request()->input('document_category_id');
+        $documentCategories = DocumentCategory::whereIn('id', $userPermissions)->get();
+        $this->crud->data['documentCategories'] = $documentCategories;
+
         if ($documentCategoryId) {
             try {
                 $documentCategory = DocumentCategory::findById($documentCategoryId);
@@ -113,17 +120,14 @@ class DocumentCrudController extends CrudController
             if (!$user->can($documentCategory->name) && !$user->hasRole('Admin')) {
                 abort(403);
             }
-
             $this->crud->addClause('where', 'document_category_id', '=', $documentCategory->id);
             $this->crud->data['documentCategory'] = $documentCategory;
-            $this->crud->addButtonFromView('top', 'filter-document-category', 'filter-document-category', 'end');
         }
+
+        $this->crud->addButtonFromView('top', 'filter-document-category', 'filter-document-category', 'end');
 
 
         if (!$user->hasRole('Admin')) {
-            $userPermissions = $user->getAllPermissions();
-            $userPermissions = $userPermissions->pluck('id')->toArray();
-
             $this->crud->addClause('whereIn', 'document_category_id', $userPermissions);
         }
 
