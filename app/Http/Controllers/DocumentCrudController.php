@@ -45,26 +45,29 @@ class DocumentCrudController extends CrudController
         $columns = [
             [
                 'name' => 'name',
+                'label' => __('Name')
             ],
             [
                 'name' => 'document_category_link',
-                'label' => __('Document category'),
+                'label' => __('Folder'),
                 'type' => 'custom_html',
                 'value' => function ($entry) {
-                    $documentCategory = DocumentCategory::findById($entry->document_category_id);
+                    $documentCategory = DocumentCategory::findById($entry->folder_id);
                     if (empty($documentCategory)) {
                         return '';
                     }
-                    $documentCategoryFilter = '?document_category_id=' . $documentCategory->id;
+                    $documentCategoryFilter = '?folder_id=' . $documentCategory->id;
                     $filterLink = backpack_url('document' . $documentCategoryFilter);
                     return '<a href="' . $filterLink . '">' . $documentCategory->name . '</a>';
                 }
             ],
             [
                 'name' => 'description',
+                'label' => __('Description')
             ],
             [
                 'name' => 'location',
+                'label' => __('File'),
                 'type' => 'custom_html',
                 'value' => function ($entry) {
                     return '<a href="' . backpack_url('documents/download/' . $entry->id) . '">' . __('Download') . '</a>';
@@ -106,7 +109,7 @@ class DocumentCrudController extends CrudController
         $userPermissions = $user->getAllPermissions();
         $userPermissions = $userPermissions->pluck('id')->toArray();
 
-        $documentCategoryId = request()->input('document_category_id');
+        $documentCategoryId = request()->input('folder_id');
         $documentCategories = DocumentCategory::whereIn('id', $userPermissions)->get();
         $this->crud->data['documentCategories'] = $documentCategories;
 
@@ -120,7 +123,7 @@ class DocumentCrudController extends CrudController
             if (!$user->can($documentCategory->name) && !$user->hasRole('Admin')) {
                 abort(403);
             }
-            $this->crud->addClause('where', 'document_category_id', '=', $documentCategory->id);
+            $this->crud->addClause('where', 'folder_id', '=', $documentCategory->id);
             $this->crud->data['documentCategory'] = $documentCategory;
         }
 
@@ -128,7 +131,7 @@ class DocumentCrudController extends CrudController
 
 
         if (!$user->hasRole('Admin')) {
-            $this->crud->addClause('whereIn', 'document_category_id', $userPermissions);
+            $this->crud->addClause('whereIn', 'folder_id', $userPermissions);
         }
 
 
@@ -153,17 +156,21 @@ class DocumentCrudController extends CrudController
         $this->crud->addFields([
             [
                 'name' => 'name',
+                'label' => __('Name')
             ],
             [
-                'name' => 'document_category_id',
+                'name' => 'folder_id',
+                'label' => __('Folder'),
                 'type' => 'select',
                 'entity' => 'documentCategory'
             ],
             [
                 'name' => 'description',
+                'label' => __('Description')
             ],
             [
                 'name' => 'location',
+                'label' => __('File'),
                 'type' => 'upload',
                 'upload'    => true,
                 'disk'      => 'documents',

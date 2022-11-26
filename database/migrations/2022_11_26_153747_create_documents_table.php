@@ -16,12 +16,12 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('document_category_id');
+            $table->unsignedBigInteger('folder_id');
             $table->text('description');
             $table->text('location');
             $table->timestamps();
 
-            $table->foreign('document_category_id')->references('id')->on('document_categories')->onDelete('cascade');
+            $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');
         });
     }
 

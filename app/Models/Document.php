@@ -19,7 +19,7 @@ class Document extends Model
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    protected $fillable = ['name', 'document_category_id', 'description', 'location'];
+    protected $fillable = ['name', 'folder_id', 'description', 'location'];
     // protected $hidden = [];
     // protected $dates = [];
 

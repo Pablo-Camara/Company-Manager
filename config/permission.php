@@ -44,7 +44,7 @@ return [
          * default value but you may easily change it to any table you like.
          */
 
-        'permissions' => 'document_categories',
+        'permissions' => 'folders',
 
         /*
          * When using the "HasPermissions" trait from this package, we need to know which
@@ -76,7 +76,7 @@ return [
          * Change this if you want to name the related pivots other than defaults
          */
         'role_pivot_key' => null, //default 'role_id',
-        'permission_pivot_key' => 'document_category_id', //default 'permission_id',
+        'permission_pivot_key' => 'folder_id', //default 'permission_id',
 
         /*
          * Change this if you want to name the related model primary key other than

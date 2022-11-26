@@ -14,7 +14,7 @@ class DocumentCategoryCrudController extends PermissionCrudController
             abort(403);
         }
         parent::setup();
-        $this->crud->setEntityNameStrings(__('Document category'), __('Document categories'));
-        $this->crud->setRoute(backpack_url('document-categories'));
+        $this->crud->setEntityNameStrings(__('Folder'), __('Folders'));
+        $this->crud->setRoute(backpack_url('folders'));
     }
 }

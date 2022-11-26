@@ -1,8 +1,11 @@
 {
     "Import": "Importar",
     "Roles": "Cargos",
-    "Document categories": "Categorias de documentos",
+    "Folders": "Pastas",
     "Documents": "Documentos",
-    "Document category": "Categoria de documentos",
-    "Document": "Documento"
+    "Folder": "Pasta",
+    "Document": "Documento",
+    "Name": "Nome",
+    "Description": "Descrição",
+    "File": "Ficheiro"
 }

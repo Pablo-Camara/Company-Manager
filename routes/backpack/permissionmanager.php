@@ -15,7 +15,7 @@ Route::group([
     'prefix'     => config('backpack.base.route_prefix', 'admin'),
     'middleware' => ['web', backpack_middleware()],
 ], function () {
-    Route::crud('document-categories', 'PermissionCrudController');
+    Route::crud('folders', 'PermissionCrudController');
     Route::crud('role', 'RoleCrudController');
     Route::crud('user', 'UserCrudController');
 });
