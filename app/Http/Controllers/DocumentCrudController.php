@@ -31,7 +31,7 @@ class DocumentCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Document::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/document');
-        CRUD::setEntityNameStrings('document', 'documents');
+        CRUD::setEntityNameStrings(__('Document'), __('Documents'));
 
         $user = backpack_user();
         if (!$user->hasRole('Admin')) {
