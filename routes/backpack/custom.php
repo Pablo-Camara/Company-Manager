@@ -17,5 +17,5 @@ Route::group([
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     Route::crud('document', 'DocumentCrudController');
-    Route::get('documents/uploads/{fileName}', 'DocumentCrudController@downloadDocument');
+    Route::get('documents/download/{document}', 'DocumentCrudController@downloadDocument');
 }); // this should be the absolute last line of this file

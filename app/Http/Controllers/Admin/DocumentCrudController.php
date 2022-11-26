@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\DocumentRequest;
+use App\Models\Document;
 use App\Models\DocumentCategory;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -58,7 +59,7 @@ class DocumentCrudController extends CrudController
                 'name' => 'location',
                 'type' => 'custom_html',
                 'value' => function ($entry) {
-                    return '<a href="' . backpack_url('documents/' . $entry->location) . '">' . __('Download') . '</a>';
+                    return '<a href="' . backpack_url('documents/download/' . $entry->id) . '">' . __('Download') . '</a>';
                 }
             ]
         ];
@@ -71,6 +72,13 @@ class DocumentCrudController extends CrudController
         ));
     }
     protected function setupShowOperation () {
+        $documentId = $this->crud->getCurrentEntryId();
+        $document = Document::with('documentCategory')->findOrFail($documentId);
+
+        if (!backpack_user()->can($document->documentCategory->name)) {
+            abort(403);
+        }
+
         $this->addColumns();
     }
 
@@ -163,11 +171,13 @@ class DocumentCrudController extends CrudController
     }
 
 
-    public function downloadDocument($fileName) {
+    public function downloadDocument(Document $document) {
+        if (!backpack_user()->can($document->documentCategory->name)) {
+            abort(403);
+        }
         $disk = Storage::disk('documents');
-        $docLocation = 'uploads/' . $fileName;
-        if ($disk->exists($docLocation) ) {
-            return Storage::download('documents/uploads/' . $fileName, );
+        if ($disk->exists($document->location) ) {
+            return Storage::download('documents/' . $document->location);
         }
         abort(404);
     }
