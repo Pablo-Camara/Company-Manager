@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Operations;
 use App\Imports\UsersImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
-use stdClass;
 
 trait ImportUsersOperation
 {
