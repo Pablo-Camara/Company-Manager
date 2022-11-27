@@ -16,7 +16,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "square-bit/laravel-pt-localization": "^1.1"
     },
     "require-dev": {
         "backpack/generators": "^3.3",

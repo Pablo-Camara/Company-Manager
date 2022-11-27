@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15247ab1dfcd027349b1c43837dc2cdd",
+    "content-hash": "4e1d3393ab6e1ab346702d919f077a89",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4266,6 +4266,61 @@
                 }
             ],
             "time": "2022-11-23T07:01:37+00:00"
+        },
+        {
+            "name": "square-bit/laravel-pt-localization",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/square-bit/laravel-pt-localization.git",
+                "reference": "7a6cf055033cf0e6af75fc1444628398dab36b2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/square-bit/laravel-pt-localization/zipball/7a6cf055033cf0e6af75fc1444628398dab36b2c",
+                "reference": "7a6cf055033cf0e6af75fc1444628398dab36b2c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Squarebit\\Laravelptlocalization\\LocalizationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Squarebit\\Laravelptlocalization\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Squarebit",
+                    "email": "info@square-bit.com",
+                    "homepage": "https://square-bit.com/"
+                }
+            ],
+            "description": "Portuguese Localization package for Laravel",
+            "homepage": "https://github.com/square-bit/laravel-pt-localization",
+            "keywords": [
+                "laravel",
+                "localization",
+                "portuguese",
+                "translations"
+            ],
+            "support": {
+                "issues": "https://github.com/square-bit/laravel-pt-localization/issues",
+                "source": "https://github.com/square-bit/laravel-pt-localization/tree/v1.1"
+            },
+            "time": "2021-05-03T16:45:07+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
