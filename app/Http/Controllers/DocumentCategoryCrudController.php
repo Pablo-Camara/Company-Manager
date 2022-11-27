@@ -26,6 +26,7 @@ class DocumentCategoryCrudController extends PermissionCrudController
                     'name'  => 'name',
                     'label' => trans('backpack::permissionmanager.name'),
                     'type'  => 'text',
+                    'limit' => 255
                 ],
                 [
                     'name'  => 'documents',

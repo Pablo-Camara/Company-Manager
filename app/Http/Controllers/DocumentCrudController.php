@@ -45,7 +45,8 @@ class DocumentCrudController extends CrudController
         $columns = [
             [
                 'name' => 'name',
-                'label' => __('Name')
+                'label' => __('Name'),
+                'limit' => 255
             ],
             [
                 'name' => 'document_category_link',
