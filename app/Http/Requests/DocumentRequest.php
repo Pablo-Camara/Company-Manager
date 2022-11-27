@@ -27,6 +27,7 @@ class DocumentRequest extends FormRequest
         return [
             'name' => 'required|min:1|max:255|unique:users,name',
             'folder_id' => 'required|exists:folders,id',
+            'description' => 'required',
             'location' => 'required'
         ];
     }
@@ -55,8 +56,8 @@ class DocumentRequest extends FormRequest
             'name.max' => __('The document name cannot have more than 255 characters.'),
             'folder_id.required' => __('You must select container folder for this document'),
             'folder_id.exists' => __('The selected folder does not exist'),
-            'location.required' => __('You are required to upload a file when creating a document')
-
+            'location.required' => __('You are required to upload a file when creating a document'),
+            'description.required' => __('Describe the document')
 
         ];
     }
