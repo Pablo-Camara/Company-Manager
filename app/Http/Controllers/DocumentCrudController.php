@@ -86,7 +86,7 @@ class DocumentCrudController extends CrudController
         $documentId = $this->crud->getCurrentEntryId();
         $document = Document::with('documentCategory')->findOrFail($documentId);
         $user = backpack_user();
-        if (!$user->can($document->documentCategory->name) && !$user->hasRole('Admin')) {
+        if (!$user->can($document->folder->name) && !$user->hasRole('Admin')) {
             abort(403);
         }
 
@@ -199,7 +199,7 @@ class DocumentCrudController extends CrudController
 
     public function downloadDocument(Document $document) {
         $user = backpack_user();
-        if (!$user->can($document->documentCategory->name) && !$user->hasRole('Admin')) {
+        if (!$user->can($document->folder->name) && !$user->hasRole('Admin')) {
             abort(403);
         }
         $disk = Storage::disk('documents');

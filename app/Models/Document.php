@@ -34,7 +34,7 @@ class Document extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function documentCategory() {
+    public function folder() {
         return $this->belongsTo(DocumentCategory::class);
     }
 
