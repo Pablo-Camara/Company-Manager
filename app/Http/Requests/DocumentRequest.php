@@ -25,7 +25,9 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:1|max:255|unique:users,name',
+            'folder_id' => 'required|exists:folders,id',
+            'location' => 'required'
         ];
     }
 
@@ -37,7 +39,7 @@ class DocumentRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+
         ];
     }
 
@@ -49,7 +51,13 @@ class DocumentRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => __('The document name is required'),
+            'name.max' => __('The document name cannot have more than 255 characters.'),
+            'folder_id.required' => __('You must select container folder for this document'),
+            'folder_id.exists' => __('The selected folder does not exist'),
+            'location.required' => __('You are required to upload a file when creating a document')
+
+
         ];
     }
 }

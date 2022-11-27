@@ -18,5 +18,10 @@
     "You tried to import an user with an email that is already taken": "Tentou importar um utilizador com um email que já foi tomado",
     "Errors in line number": "Erros na linha numero",
     "Users imported": "Utilizadores importados",
-    "The email has already been taken.": "Já existe um utilizador com este email"
+    "The email has already been taken.": "Já existe um utilizador com este email",
+    "The document name is required":"É obrigatório preêncher o nome do documento",
+    "The document name cannot have more than 255 characters.":"O nome do documento não pode ter mas do que 255 caractéres.",
+    "The selected folder does not exist":"A pasta selecionada não existe",
+    "You must select container folder for this document":"É obrigatório selecionar uma pasta destino",
+    "You are required to upload a file when creating a document":"É obrigatório fazer upload de um ficheiro ao criar um documento."
 }
