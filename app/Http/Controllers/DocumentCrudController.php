@@ -84,7 +84,7 @@ class DocumentCrudController extends CrudController
     }
     protected function setupShowOperation () {
         $documentId = $this->crud->getCurrentEntryId();
-        $document = Document::with('documentCategory')->findOrFail($documentId);
+        $document = Document::with('folder')->findOrFail($documentId);
         $user = backpack_user();
         if (!$user->can($document->folder->name) && !$user->hasRole('Admin')) {
             abort(403);
@@ -124,7 +124,7 @@ class DocumentCrudController extends CrudController
                 abort(403);
             }
             $this->crud->addClause('where', 'folder_id', '=', $documentCategory->id);
-            $this->crud->data['documentCategory'] = $documentCategory;
+            $this->crud->data['folder'] = $documentCategory;
         }
 
         $this->crud->addButtonFromView('top', 'filter-document-category', 'filter-document-category', 'end');
@@ -162,7 +162,7 @@ class DocumentCrudController extends CrudController
                 'name' => 'folder_id',
                 'label' => __('Folder'),
                 'type' => 'select',
-                'entity' => 'documentCategory'
+                'entity' => 'folder'
             ],
             [
                 'name' => 'description',

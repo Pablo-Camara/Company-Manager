@@ -1,6 +1,6 @@
 @php
     $documentCategories = $crud->data['documentCategories'] ?? [];
-    $selectedCategory = $crud->data['documentCategory'] ?? null;
+    $selectedCategory = $crud->data['folder'] ?? null;
 @endphp
 <div style="margin: 10px 0 4px 0">
     <select class="document-category-filter" name="folder_id" style="width: 300px">
