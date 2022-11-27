@@ -63,7 +63,11 @@ class DocumentCrudController extends CrudController
             ],
             [
                 'name' => 'description',
-                'label' => __('Description')
+                'label' => __('Description'),
+                'type' => 'custom_html',
+                'value' => function ($entry) {
+                    return $entry->description;
+                }
             ],
             [
                 'name' => 'location',
