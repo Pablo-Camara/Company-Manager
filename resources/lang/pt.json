@@ -25,5 +25,6 @@
     "You must select container folder for this document":"É obrigatório selecionar uma pasta destino",
     "You are required to upload a file when creating a document":"É obrigatório fazer upload de um ficheiro ao criar um documento.",
     "The users password will be their fiscal number and they can change it after logging in.":"A palavra-passe dos utilizadores serão correspondentes ao número de contribuinte de cada um. Os utilizadores podem e devem alterar a password depois de entrar pela primeira vez.",
-    "Notice":"Nota"
+    "Notice":"Nota",
+    "Total documents":"Total de documentos"
 }
