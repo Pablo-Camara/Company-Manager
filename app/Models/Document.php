@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Document extends Model
 {
@@ -28,6 +29,13 @@ class Document extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function($obj) {
+            Storage::disk('documents')->delete($obj->location);
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -63,5 +71,4 @@ class Document extends Model
 
         $this->uploadFileToDisk($value, $attribute_name, $disk, $destination_path, $fileName = null);
     }
-
 }
