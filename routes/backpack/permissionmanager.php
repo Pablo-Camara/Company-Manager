@@ -18,4 +18,5 @@ Route::group([
     Route::crud('folders', 'PermissionCrudController');
     Route::crud('role', 'RoleCrudController');
     Route::crud('user', 'UserCrudController');
+    Route::get('user/import/template-file', 'UserCrudController@downloadImportFileTemplate')->name('users.import.template');
 });

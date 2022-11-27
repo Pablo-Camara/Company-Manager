@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Operations;
 
+use App\Imports\UsersImport;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
+use stdClass;
 
 trait ImportUsersOperation
 {
@@ -75,19 +78,30 @@ trait ImportUsersOperation
         // execute the FormRequest authorization and validation, if one is required
         $request = $this->crud->validateRequest();
 
-        // register any Model Events defined on fields
-        $this->crud->registerFieldEvents();
+        $importFile = request()->file('import_file');
+        $roles = request()->input('roles');
 
-        // insert item in the db
-        $item = $this->crud->create($this->crud->getStrippedSaveRequest($request));
-        $this->data['entry'] = $this->crud->entry = $item;
+        try {
+            $result = (object) ['count' => 0];
+            Excel::import(new UsersImport($result, $roles), $importFile);
 
-        // show a success message
-        \Alert::success(trans('backpack::crud.insert_success'))->flash();
+            if($result->count > 0) {
+                \Alert::success($result->count . ' ' . __('Users imported successfully'))->flash();
+            } else {
+                \Alert::error($result->count . ' ' . __('Users imported'))->flash();
+            }
+
+        } catch (\Throwable $th) {
+            if ($th->getCode() == 23000) {
+                \Alert::error(__('You tried to import an user with an email that is already taken'))->flash();
+            } else {
+                \Alert::error(__('Something went wrong, check the import file and try again'))->flash();
+            }
+        }
 
         // save the redirect choice for next time
         $this->crud->setSaveAction();
 
-        return $this->crud->performSaveAction($item->getKey());
+        return $this->crud->performSaveAction();
     }
 }
