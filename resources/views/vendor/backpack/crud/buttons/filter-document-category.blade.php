@@ -1,5 +1,5 @@
 @php
-    $documentCategories = $crud->data['documentCategories'] ?? [];
+    $documentCategories = $crud->data['folders'] ?? [];
     $selectedCategory = $crud->data['folder'] ?? null;
 @endphp
 <div style="margin: 10px 0 4px 0">

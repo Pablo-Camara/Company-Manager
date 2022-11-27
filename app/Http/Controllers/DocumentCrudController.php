@@ -110,8 +110,13 @@ class DocumentCrudController extends CrudController
         $userPermissions = $userPermissions->pluck('id')->toArray();
 
         $documentCategoryId = request()->input('folder_id');
-        $documentCategories = DocumentCategory::whereIn('id', $userPermissions)->get();
-        $this->crud->data['documentCategories'] = $documentCategories;
+        if ($user->hasRole('Admin')) {
+            $documentCategories = DocumentCategory::all();
+        } else {
+            $documentCategories = DocumentCategory::whereIn('id', $userPermissions)->get();
+        }
+
+        $this->crud->data['folders'] = $documentCategories;
 
         if ($documentCategoryId) {
             try {
