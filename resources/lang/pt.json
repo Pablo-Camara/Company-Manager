@@ -27,5 +27,6 @@
     "The users password will be their fiscal number and they can change it after logging in.":"A palavra-passe dos utilizadores serão correspondentes ao número de contribuinte de cada um. Os utilizadores podem e devem alterar a password depois de entrar pela primeira vez.",
     "Notice":"Nota",
     "Total documents":"Total de documentos",
-    "Describe the document":"Descreva o documento"
+    "Describe the document":"Descreva o documento",
+    "Fiscal number": "Nif"
 }

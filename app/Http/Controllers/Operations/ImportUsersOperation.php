@@ -23,7 +23,7 @@ trait ImportUsersOperation
             'operation' => 'import',
         ]);
 
-        Route::post($segment, [
+        Route::post($segment.'/import', [
             'as'        => $routeName.'.importPost',
             'uses'      => $controller.'@importPost',
             'operation' => 'import',
