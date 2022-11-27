@@ -61,6 +61,15 @@ class UserCrudController extends ControllersUserCrudController
                 'attributes' => [
                     'required' => 'required'
                 ]
+            ],
+            [
+                'name' => 'notice',
+                'type' => 'custom_html',
+                'value' => '<b>'. __('Notice') . ':</b> ' . __('The users password will be their fiscal number and they can change it after logging in.'),
+                'attributes' => [
+                    'disabled' => 'disabled',
+                    'readonly' => 'readonly'
+                ]
             ]
         ]);
 

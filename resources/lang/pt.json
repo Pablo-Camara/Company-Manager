@@ -23,5 +23,7 @@
     "The document name cannot have more than 255 characters.":"O nome do documento não pode ter mas do que 255 caractéres.",
     "The selected folder does not exist":"A pasta selecionada não existe",
     "You must select container folder for this document":"É obrigatório selecionar uma pasta destino",
-    "You are required to upload a file when creating a document":"É obrigatório fazer upload de um ficheiro ao criar um documento."
+    "You are required to upload a file when creating a document":"É obrigatório fazer upload de um ficheiro ao criar um documento.",
+    "The users password will be their fiscal number and they can change it after logging in.":"A palavra-passe dos utilizadores serão correspondentes ao número de contribuinte de cada um. Os utilizadores podem e devem alterar a password depois de entrar pela primeira vez.",
+    "Notice":"Nota"
 }
