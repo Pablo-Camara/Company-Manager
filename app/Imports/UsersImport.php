@@ -58,9 +58,11 @@ class UsersImport implements ToCollection, WithHeadingRow
 
             $user = User::create($data);
 
-            foreach($this->roles as $roleId) {
-                $role = Role::findById($roleId);
-                $user->assignRole($role->name);
+            if (!empty($this->roles)) {
+                foreach($this->roles as $roleId) {
+                    $role = Role::findById($roleId);
+                    $user->assignRole($role->name);
+                }
             }
             $this->result->count++;
         }

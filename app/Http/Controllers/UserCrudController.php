@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UsersImportTemplate;
-use App\Http\Controllers\Operations\ImportUsersOperation;
+use App\Http\Controllers\Operations\ImportOperation;
 use App\Http\Requests\ImportUsersRequest;
 use App\Http\Requests\UserCreateRequest;
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as ControllersUserCrudController;
@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class UserCrudController extends ControllersUserCrudController
 {
-    use ImportUsersOperation;
+    use ImportOperation;
     public function setup()
     {
         $user = backpack_user();
@@ -39,8 +39,31 @@ class UserCrudController extends ControllersUserCrudController
 
     public function setupImportOperation()
     {
+        $this->crud->setSaveActions(
+            [
+                [
+                    'name' => 'import',
+                    'redirect' => function($crud, $request, $itemId) {
+                        return $crud->route;
+                    }, // what's the redirect URL, where the user will be taken after saving?
+
+                    // OPTIONAL:
+                    'button_text' => __('Import'), // override text appearing on the button
+                    // You can also provide translatable texts, for example:
+                    // 'button_text' => trans('backpack::crud.save_action_one'),
+                    'visible' => function($crud) {
+                        return true;
+                    }, // customize when this save action is visible for the current operation
+                    'referrer_url' => function($crud, $request, $itemId) {
+                        return $crud->route;
+                    }, // override http_referrer_url
+                    'order' => 1, // change the order save actions are in
+                ]
+            ]
+        );
+
         $this->crud->setValidation(ImportUsersRequest::class);
-        $this->crud->setEntityNameStrings(__('/ Import users'), __('Users'));
+        $this->crud->setEntityNameStrings(__('users'), __('Users'));
         $this->crud->addFields([
             [
                 'name' => 'template_file',

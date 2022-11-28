@@ -6,7 +6,7 @@ use App\Imports\UsersImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
-trait ImportUsersOperation
+trait ImportOperation
 {
     /**
      * Define which routes are needed for this operation.
@@ -15,16 +15,16 @@ trait ImportUsersOperation
      * @param  string  $routeName  Prefix of the route name.
      * @param  string  $controller  Name of the current CrudController.
      */
-    protected function setupImportUsersRoutes($segment, $routeName, $controller)
+    protected function setupImportRoutes($segment, $routeName, $controller)
     {
         Route::get($segment.'/import', [
-            'as'        => $routeName.'.import',
+            'as'        => $routeName.'.getImport',
             'uses'      => $controller.'@importShowView',
             'operation' => 'import',
         ]);
 
         Route::post($segment.'/import', [
-            'as'        => $routeName.'.importPost',
+            'as'        => $routeName.'.postImport',
             'uses'      => $controller.'@importPost',
             'operation' => 'import',
         ]);
@@ -55,6 +55,7 @@ trait ImportUsersOperation
     public function importShowView()
     {
         $this->crud->hasAccessOrFail('import');
+        $this->crud->setOperation('import');
 
         // prepare the fields you need to show
         $this->data['crud'] = $this->crud;
@@ -62,7 +63,7 @@ trait ImportUsersOperation
         $this->data['title'] = $this->crud->getTitle() ?? trans('backpack::crud.add').' '.$this->crud->entity_name;
 
         // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        return view($this->crud->getCreateView(), $this->data);
+        return view('vendor.backpack.crud.import', $this->data);
     }
 
     /**
