@@ -163,6 +163,25 @@ class DocumentCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(DocumentRequest::class);
+
+
+
+        $locationField = [
+            'name' => 'location',
+            'label' => __('File'),
+            'type' => 'upload',
+            'upload'    => true,
+            'disk'      => 'documents',
+        ];
+
+        if ($this->crud->getCurrentOperation() === 'update') {
+            $locationField = array_merge(
+                $locationField,
+                [
+                    'file_link' => backpack_url('documents/download/' . $this->crud->getCurrentEntryId()),
+                ]
+            );
+        }
         $this->crud->addFields([
             [
                 'name' => 'name',
@@ -178,13 +197,7 @@ class DocumentCrudController extends CrudController
                 'name' => 'description',
                 'label' => __('Description')
             ],
-            [
-                'name' => 'location',
-                'label' => __('File'),
-                'type' => 'upload',
-                'upload'    => true,
-                'disk'      => 'documents',
-            ]
+            $locationField
         ]);
 
 

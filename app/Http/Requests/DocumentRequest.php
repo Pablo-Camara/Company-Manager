@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Document;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DocumentRequest extends FormRequest
@@ -24,12 +25,31 @@ class DocumentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $documentId = request()->input('id');
+        $document = Document::find($documentId);
+
+        $rules = [
             'name' => 'required|min:1|max:255|unique:users,name',
             'folder_id' => 'required|exists:folders,id',
-            'description' => 'required',
-            'location' => 'required'
+            'description' => 'required'
         ];
+
+        if (
+            empty($document)
+            ||
+            (!empty($document) && empty($document->location))
+            ||
+            request()->has('location')
+        ) {
+            $rules = array_merge(
+                $rules,
+                [
+                    'location' => 'required'
+                ]
+            );
+        }
+
+        return $rules;
     }
 
     /**
