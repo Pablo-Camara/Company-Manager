@@ -43,4 +43,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getPermissions() {
+        $userPermissions = $this->getAllPermissions();
+        $userPermissions = $userPermissions->pluck('id')->toArray();
+        return $userPermissions;
+    }
+
+    public function getFolders($userPermissions = 'not-set') {
+        if ($userPermissions === 'not-set') {
+            $userPermissions = $this->getPermissions();
+        }
+        if ($this->hasRole('Admin')) {
+            $folders = DocumentCategory::all();
+        } else {
+            $folders = DocumentCategory::whereIn('id', $userPermissions)->get();
+        }
+
+        return $folders;
+    }
 }

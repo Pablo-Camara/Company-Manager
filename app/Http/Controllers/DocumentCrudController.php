@@ -111,15 +111,9 @@ class DocumentCrudController extends CrudController
     protected function setupListOperation()
     {
         $user = backpack_user();
-        $userPermissions = $user->getAllPermissions();
-        $userPermissions = $userPermissions->pluck('id')->toArray();
-
+        $userPermissions = $user->getPermissions();
         $documentCategoryId = request()->input('folder_id');
-        if ($user->hasRole('Admin')) {
-            $documentCategories = DocumentCategory::all();
-        } else {
-            $documentCategories = DocumentCategory::whereIn('id', $userPermissions)->get();
-        }
+        $documentCategories = $user->getFolders($userPermissions);
 
         $this->crud->data['folders'] = $documentCategories;
 
