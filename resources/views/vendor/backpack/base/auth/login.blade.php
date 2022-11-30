@@ -13,7 +13,7 @@
                             margin: auto;
                             margin-bottom: 30px;
                         "
-                            src="https://docentes.aelixa.pt/wp-content/uploads/2022/06/cropped-AELixa_logo-1536x753-1.png" />
+                            src="aelixa-logo.png" />
                     </div>
                     <form class="col-md-12 p-t-10" role="form" method="POST" action="{{ route('backpack.auth.login') }}">
                         {!! csrf_field() !!}
