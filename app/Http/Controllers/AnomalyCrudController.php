@@ -155,6 +155,21 @@ class AnomalyCrudController extends CrudController
                 'label' => __('Updated at')
             ],
             [
+                'name' => 'user_id',
+                'label' => __('Reported by'),
+                'value' => function($entry) {
+                    return [
+                        $entry->user->name . ' (' . $entry->user->id . ')'
+                    ];
+                },
+                'wrapper' => [
+                    'element' => 'a',
+                    'href' => function ($crud, $column, $entry, $related_key) {
+                        return route('user.show', ['id' => $entry->user->id]);
+                    }
+                ]
+            ],
+            [
                 'name' => 'description',
                 'label' => __('Description'),
                 'limit' => 65535
