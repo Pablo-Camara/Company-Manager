@@ -301,7 +301,7 @@ class AnomalyCrudController extends CrudController
 
         if (!empty($anomaliesDestinationEmail)) {
             $destinationEmails = explode(',', $anomaliesDestinationEmail->config_value);
-
+            $destinationEmails =  array_filter($destinationEmails);
             if (!empty($destinationEmails)) {
                 try {
                     Mail::to($destinationEmails)->send(new AnomalyReport($item));

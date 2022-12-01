@@ -259,12 +259,12 @@ class RequisitionCrudController extends CrudController
 
         if (!empty($requisitionsDestinationEmail)) {
             $destinationEmails = explode(',', $requisitionsDestinationEmail->config_value);
-
+            $destinationEmails =  array_filter($destinationEmails);
             if (!empty($destinationEmails)) {
                 try {
                     Mail::to($destinationEmails)->send(new Requisition($item));
                 } catch (\Throwable $th) {
-                    \Alert::error(__('Could not report anomaly by email'))->flash();
+                    \Alert::error(__('Could not send the requisition by email'))->flash();
                 }
             }
         }

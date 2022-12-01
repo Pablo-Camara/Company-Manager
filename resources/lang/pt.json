@@ -50,6 +50,7 @@
     "Config value": "Valor configuração",
     "Invalid email": "Email invalido",
     "Could not report anomaly by email": "Não foi possível reportar a anomalia por email",
+    "Could not send the requisition by email": "Não foi possível enviar a requisição por email",
     "Thanks": "Obrigado",
     "New anomaly reported": "Nova anomalia relatada",
     "New requisition": "Nova requisição",
