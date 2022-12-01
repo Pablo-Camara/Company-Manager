@@ -52,5 +52,7 @@
     "Could not report anomaly by email": "Não foi possível reportar a anomalia por email",
     "Thanks": "Obrigado",
     "New anomaly reported": "Nova anomalia relatada",
-    "View in backoffice": "Ver no backoffice"
+    "View in backoffice": "Ver no backoffice",
+    "Equipment": "Equipamento",
+    "equipment": "Equipamento"
 }

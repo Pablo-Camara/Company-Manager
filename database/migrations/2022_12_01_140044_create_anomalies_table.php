@@ -16,11 +16,13 @@ class CreateAnomaliesTable extends Migration
         Schema::create('anomalies', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->unsignedBigInteger('physical_space_id');
+            $table->unsignedBigInteger('physical_space_id')->nullable();
+            $table->unsignedBigInteger('equipment_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
 
             $table->foreign('physical_space_id')->references('id')->on('physical_spaces')->onDelete('cascade');
+            $table->foreign('equipment_id')->references('id')->on('equipment')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');;
         });
     }

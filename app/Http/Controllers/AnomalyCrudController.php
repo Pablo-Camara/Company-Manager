@@ -52,6 +52,12 @@ class AnomalyCrudController extends CrudController
                 'entity' => 'physicalSpace'
             ],
             [
+                'name' => 'equipment_id',
+                'label' => __('Equipment'),
+                'type' => 'select',
+                'entity' => 'equipment'
+            ],
+            [
                 'name' => 'created_at',
                 'label' => __('Created at')
             ],
@@ -117,6 +123,12 @@ class AnomalyCrudController extends CrudController
                 'label' => __('Physical space'),
                 'type' => 'select',
                 'entity' => 'physicalSpace'
+            ],
+            [
+                'name' => 'equipment_id',
+                'label' => __('Equipment'),
+                'type' => 'select',
+                'entity' => 'equipment'
             ],
         ]);
 
@@ -213,6 +225,12 @@ class AnomalyCrudController extends CrudController
                 'label' => __('Physical space'),
                 'type' => 'select',
                 'entity' => 'physicalSpace'
+            ],
+            [
+                'name' => 'equipment_id',
+                'label' => __('Equipment'),
+                'type' => 'select',
+                'entity' => 'equipment'
             ],
             [
                 'name' => 'created_at',

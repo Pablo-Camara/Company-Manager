@@ -21,4 +21,5 @@ Route::group([
     Route::crud('physical-space', 'PhysicalSpaceCrudController');
     Route::crud('anomaly', 'AnomalyCrudController');
     Route::crud('configuration', 'ConfigurationCrudController');
+    Route::crud('equipment', 'EquipmentCrudController');
 }); // this should be the absolute last line of this file

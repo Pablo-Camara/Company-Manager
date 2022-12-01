@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AnomalyRequest extends FormRequest
+class EquipmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,7 @@ class AnomalyRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required',
-            'physical_space_id' => 'required_without:equipment_id',
-            'equipment_id' => 'required_without:physical_space_id'
+            // 'name' => 'required|min:5|max:255'
         ];
     }
 
@@ -39,9 +37,7 @@ class AnomalyRequest extends FormRequest
     public function attributes()
     {
         return [
-            'description' => __('Description'),
-            'physical_space_id' => __('Physical space'),
-            'equipment_id' => __('Equipment')
+            //
         ];
     }
 

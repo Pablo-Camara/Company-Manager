@@ -11,6 +11,7 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>{{ __('Users') }}</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>{{ __('Roles') }}</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('physical-space') }}"><i class="nav-icon la la-map-marker"></i> {{ __('Physical spaces') }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('equipment') }}"><i class="nav-icon la la-laptop"></i> {{ __('Equipment') }}</a></li>
 @endif
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('anomaly') }}"><i class="nav-icon la la-bomb"></i> {{ __('Anomalies') }}</a></li>
 @if($user->isAdmin())

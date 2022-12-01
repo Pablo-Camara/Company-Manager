@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Anomaly extends Model
+class Equipment extends Model
 {
     use CrudTrait;
 
@@ -16,7 +15,7 @@ class Anomaly extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'anomalies';
+    protected $table = 'equipment';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
@@ -35,17 +34,6 @@ class Anomaly extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function physicalSpace(): BelongsTo {
-        return $this->belongsTo(PhysicalSpace::class);
-    }
-
-    public function equipment(): BelongsTo {
-        return $this->belongsTo(Equipment::class);
-    }
-
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
 
     /*
     |--------------------------------------------------------------------------
