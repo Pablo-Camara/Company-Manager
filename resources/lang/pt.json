@@ -48,5 +48,9 @@
     "configurations": "configurações",
     "Config name": "Nome configuração",
     "Config value": "Valor configuração",
-    "Invalid email": "Email invalido"
+    "Invalid email": "Email invalido",
+    "Could not report anomaly by email": "Não foi possível reportar a anomalia por email",
+    "Thanks": "Obrigado",
+    "New anomaly reported": "Nova anomalia relatada",
+    "View in backoffice": "Ver no backoffice"
 }

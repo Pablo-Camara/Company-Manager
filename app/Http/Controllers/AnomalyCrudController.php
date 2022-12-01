@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AnomalyRequest;
+use App\Mail\AnomalyReport;
 use App\Models\Anomaly;
+use App\Models\Configuration;
 use App\Models\PhysicalSpace;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class AnomalyCrudController
@@ -251,6 +254,20 @@ class AnomalyCrudController extends CrudController
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+        $anomaliesDestinationEmail = Configuration::where('config_name', 'anomalies_destination_email')->first();
+
+        if (!empty($anomaliesDestinationEmail)) {
+            $destinationEmails = explode(',', $anomaliesDestinationEmail->config_value);
+
+            if (!empty($destinationEmails)) {
+                try {
+                    Mail::to($destinationEmails)->send(new AnomalyReport($item));
+                } catch (\Throwable $th) {
+                    \Alert::error(__('Could not report anomaly by email'))->flash();
+                }
+            }
+        }
 
         // save the redirect choice for next time
         $this->crud->setSaveAction();
