@@ -66,4 +66,24 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->hasRole('Admin');
     }
+
+    public function recentDocuments() {
+        $recentDocuments = Document::select([
+            'id',
+            'name',
+            'created_at'
+        ]);
+
+        if (!$this->isAdmin()) {
+            $foldersWithPermissions = $this->getFolders()->pluck('id')->toArray();
+            $recentDocuments = $recentDocuments->whereIn('folder_id', $foldersWithPermissions);
+        }
+
+        $recentDocuments = $recentDocuments->orderBy('created_at', 'DESC')
+                            ->orderBy('updated_at', 'DESC')
+                            ->limit(20)
+                            ->get();
+
+        return $recentDocuments;
+    }
 }

@@ -8,6 +8,11 @@
         'button_link' => backpack_url('logout'),
         'button_text' => trans('backpack::base.logout'),
     ];
+
+    $widgets['before_content'][] = [
+        'type'     => 'view',
+        'view'     => 'dashboard.recent-documents'
+    ];
 @endphp
 
 @section('content')
