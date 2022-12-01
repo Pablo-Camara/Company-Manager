@@ -158,14 +158,23 @@ class AnomalyCrudController extends CrudController
                 'name' => 'user_id',
                 'label' => __('Reported by'),
                 'value' => function($entry) {
+                    if ($entry->user) {
+                        return [
+                            $entry->user->name . ' (' . $entry->user->id . ')'
+                        ];
+                    }
+
                     return [
-                        $entry->user->name . ' (' . $entry->user->id . ')'
+                        __('Unknown')
                     ];
                 },
                 'wrapper' => [
                     'element' => 'a',
                     'href' => function ($crud, $column, $entry, $related_key) {
-                        return route('user.show', ['id' => $entry->user->id]);
+                        if ($entry->user) {
+                            return route('user.show', ['id' => $entry->user->id]);
+                        }
+                        return '#';
                     }
                 ]
             ],
