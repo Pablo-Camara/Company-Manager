@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AnomalyRequest;
+use App\Models\Anomaly;
 use App\Models\PhysicalSpace;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -82,6 +83,10 @@ class AnomalyCrudController extends CrudController
 
         $this->crud->addButtonFromView('top', 'filter-physical-space', 'filter-physical-space', 'end');
 
+        $user = backpack_user();
+        if (!$user->isAdmin()) {
+            $this->crud->addClause('where', 'user_id', '=', $user->id);
+        }
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -127,7 +132,32 @@ class AnomalyCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
+        $user = backpack_user();
+        $entryId = $this->crud->getCurrentEntryId();
+        $anomaly = Anomaly::findOrFail($entryId);
+
+        if (!$user->isAdmin() && $anomaly->user->id !== $user->id) {
+            abort(403);
+        }
+
         $this->setupCreateOperation();
+    }
+
+    /**
+     * Define what happens when the Delete operation is loaded.
+     *
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
+    protected function setupDeleteOperation()
+    {
+        $user = backpack_user();
+        $entryId = $this->crud->getCurrentEntryId();
+        $anomaly = Anomaly::findOrFail($entryId);
+
+        if (!$user->isAdmin() && $anomaly->user->id !== $user->id) {
+            abort(403);
+        }
     }
 
 
@@ -139,6 +169,14 @@ class AnomalyCrudController extends CrudController
      */
     public function setupShowOperation()
     {
+        $user = backpack_user();
+        $entryId = $this->crud->getCurrentEntryId();
+        $anomaly = Anomaly::findOrFail($entryId);
+
+        if (!$user->isAdmin() && $anomaly->user->id !== $user->id) {
+            abort(403);
+        }
+
         $reportedBy = [
             'name' => 'user_id',
             'label' => __('Reported by'),
