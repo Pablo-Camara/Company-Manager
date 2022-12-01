@@ -39,6 +39,10 @@ class Anomaly extends Model
         return $this->belongsTo(PhysicalSpace::class);
     }
 
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES
