@@ -52,7 +52,13 @@
     "Could not report anomaly by email": "Não foi possível reportar a anomalia por email",
     "Thanks": "Obrigado",
     "New anomaly reported": "Nova anomalia relatada",
+    "New requisition": "Nova requisição",
     "View in backoffice": "Ver no backoffice",
     "Equipment": "Equipamento",
-    "equipment": "Equipamento"
+    "equipment": "Equipamento",
+    "Requisitions": "Requisições",
+    "requisition": "requisição",
+    "requisitions": "requisições",
+    "Motive": "Motivo",
+    "Requested by": "Pedido por"
 }

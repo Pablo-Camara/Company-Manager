@@ -135,6 +135,7 @@ class ConfigurationCrudController extends CrudController
 
             switch ($configuration->config_name) {
                 case 'anomalies_destination_email':
+                case 'requisitions_destination_email':
                     $configValue = explode(',', $all['config_value']);
                     $configValue = array_map(
                         function ($configValue) {

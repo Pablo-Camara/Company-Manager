@@ -13,6 +13,7 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('physical-space') }}"><i class="nav-icon la la-map-marker"></i> {{ __('Physical spaces') }}</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('equipment') }}"><i class="nav-icon la la-laptop"></i> {{ __('Equipment') }}</a></li>
 @endif
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('requisition') }}"><i class="nav-icon la la-key"></i> {{ __('Requisitions') }}</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('anomaly') }}"><i class="nav-icon la la-bomb"></i> {{ __('Anomalies') }}</a></li>
 @if($user->isAdmin())
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('folders') }}"><i class="nav-icon la la-folder"></i> <span>{{ __('Folders') }}</span></a></li>
