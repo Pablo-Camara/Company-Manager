@@ -29,5 +29,9 @@
     "Notice":"Nota",
     "Total documents":"Total de documentos",
     "Describe the document":"Descreva o documento",
-    "Fiscal number": "Nif"
+    "Fiscal number": "Nif",
+    "Physical spaces": "Espaços físicos",
+    "physical spaces": "espaços físicos",
+    "physical space": "espaço físico",
+    "Space name": "Nome do espaço"
 }

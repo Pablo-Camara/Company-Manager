@@ -18,4 +18,5 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('document', 'DocumentCrudController');
     Route::get('documents/download/{document}', 'DocumentCrudController@downloadDocument');
+    Route::crud('physical-space', 'PhysicalSpaceCrudController');
 }); // this should be the absolute last line of this file
