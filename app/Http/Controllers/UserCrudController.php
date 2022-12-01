@@ -29,17 +29,19 @@ class UserCrudController extends ControllersUserCrudController
         $roles = Role::all();
         $this->crud->data['roles'] = $roles;
         if ($roleId) {
+            $filterByRole = false;
             try {
-                $role = Role::find($roleId);
-            } catch (\Throwable $th) {
-                abort(404);
+                $role = Role::findOrFail($roleId);
+                $filterByRole = true;
+            } catch (\Throwable $th) { }
+
+            if ($filterByRole) {
+                $this->crud->addClause('whereHas', 'roles', function ($query) use ($roleId) {
+                    $query->where('role_id', '=', $roleId);
+                });
+
+                $this->crud->data['role'] = $role;
             }
-
-            $this->crud->addClause('whereHas', 'roles', function ($query) use ($roleId) {
-                $query->where('role_id', '=', $roleId);
-            });
-
-            $this->crud->data['role'] = $role;
         }
 
         $this->crud->addButtonFromView('top', 'filter-role', 'filter-role', 'end');
