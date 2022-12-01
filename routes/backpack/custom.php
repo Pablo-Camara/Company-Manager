@@ -19,4 +19,5 @@ Route::group([
     Route::crud('document', 'DocumentCrudController');
     Route::get('documents/download/{document}', 'DocumentCrudController@downloadDocument');
     Route::crud('physical-space', 'PhysicalSpaceCrudController');
+    Route::crud('anomaly', 'AnomalyCrudController');
 }); // this should be the absolute last line of this file
