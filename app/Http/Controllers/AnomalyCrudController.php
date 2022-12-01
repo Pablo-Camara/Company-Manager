@@ -155,7 +155,7 @@ class AnomalyCrudController extends CrudController
             [
                 'name' => 'description',
                 'label' => __('Description'),
-                'limit' => -1
+                'limit' => 65535
             ],
         ]);
     }
