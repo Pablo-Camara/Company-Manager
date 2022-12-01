@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 class UserCrudController extends ControllersUserCrudController
 {
     use ImportOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
     public function setup()
     {
         $user = backpack_user();
@@ -136,6 +138,14 @@ class UserCrudController extends ControllersUserCrudController
     {
         $this->addUserFields();
         $this->crud->setValidation(UserCreateRequest::class);
+    }
+
+    public function setupShowOperation()
+    {
+        parent::setupListOperation();
+        $this->crud->addColumn([
+            'name' => 'nif'
+        ]);
     }
 
     protected function addUserFields()
