@@ -1,12 +1,12 @@
 @php
-    $physicalSpaces = $crud->data['physical_spaces'] ?? [];
-    $selectedPhysicalSpace = $crud->data['physical_space'] ?? null;
+    $roles = $crud->data['roles'] ?? [];
+    $selectedRole = $crud->data['role'] ?? null;
 @endphp
 <div style="margin: 10px 0 4px 0;">
-    <select class="physical-space-filter" name="physical_space_id">
-        <option value="" {{ $selectedPhysicalSpace ? '' : 'selected' }}></option>
-        @foreach($physicalSpaces as $physicalSpace)
-            <option value="{{ $physicalSpace->id }}" {{ $selectedPhysicalSpace &&  $selectedPhysicalSpace->id === $physicalSpace->id ? 'selected' : ''  }}>{{ $physicalSpace->space_name }}</option>
+    <select class="role-filter" name="role_id">
+        <option value="" {{ $selectedRole ? '' : 'selected' }}></option>
+        @foreach($roles as $role)
+            <option value="{{ $role->id }}" {{ $selectedRole &&  $selectedRole->id === $role->id ? 'selected' : ''  }}>{{ $role->name }}</option>
         @endforeach
     </select>
 </div>
@@ -32,23 +32,23 @@
         }
 
         $(document).ready(function() {
-            $('.physical-space-filter').select2({
-                placeholder: "{{ __('Physical space') }}",
+            $('.role-filter').select2({
+                placeholder: "{{ __('Role') }}",
                 width: 'style'
             }).on('select2:select', function (e) {
                 const documentCategoryId = $(this).val();
                 var currUrl = window.location.href;
                 if (!documentCategoryId) {
-                    window.location.href = removeURLParameter(currUrl, 'physical_space_id');
+                    window.location.href = removeURLParameter(currUrl, 'role_id');
                     return;
                 }
 
 
-                currUrl = removeURLParameter(currUrl, 'physical_space_id');
+                currUrl = removeURLParameter(currUrl, 'role_id');
                 if (currUrl.indexOf('?') > -1){
-                    currUrl += '&physical_space_id=' + documentCategoryId;
+                    currUrl += '&role_id=' + documentCategoryId;
                 } else{
-                    currUrl += '?physical_space_id=' + documentCategoryId;
+                    currUrl += '?role_id=' + documentCategoryId;
                 }
                 window.location.href = currUrl;
             });

@@ -7,6 +7,7 @@ use App\Http\Controllers\Operations\ImportOperation;
 use App\Http\Requests\ImportUsersRequest;
 use App\Http\Requests\UserCreateRequest;
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as ControllersUserCrudController;
+use Backpack\PermissionManager\app\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserCrudController extends ControllersUserCrudController
@@ -24,13 +25,24 @@ class UserCrudController extends ControllersUserCrudController
     public function setupListOperation()
     {
         parent::setupListOperation();
-        $roleId = request()->input('role');
-
+        $roleId = request()->input('role_id');
+        $roles = Role::all();
+        $this->crud->data['roles'] = $roles;
         if ($roleId) {
+            try {
+                $role = Role::find($roleId);
+            } catch (\Throwable $th) {
+                abort(404);
+            }
+
             $this->crud->addClause('whereHas', 'roles', function ($query) use ($roleId) {
                 $query->where('role_id', '=', $roleId);
             });
+
+            $this->crud->data['role'] = $role;
         }
+
+        $this->crud->addButtonFromView('top', 'filter-role', 'filter-role', 'end');
 
         $this->crud->addColumn([
             'name' => 'nif'
