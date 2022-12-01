@@ -10,13 +10,14 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>{{ __('Users') }}</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>{{ __('Roles') }}</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('physical-space') }}"><i class="nav-icon la la-map-marker"></i> {{ __('Physical spaces') }}</a></li>
+@endif
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('anomaly') }}"><i class="nav-icon la la-bomb"></i> {{ __('Anomalies') }}</a></li>
+@if($user->hasRole('Admin'))
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('folders') }}"><i class="nav-icon la la-folder"></i> <span>{{ __('Folders') }}</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('document') }}"><i class="nav-icon la la-file"></i> {{ __('Documents') }}</a></li>
+@endif
 
-@else
-
-
+@if(!$user->hasRole('Admin'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="javascript:void(0);"><i class="nav-icon la la-file"></i> {{ __('Documents') }}</a>
     <ul class="nav-dropdown-items">
