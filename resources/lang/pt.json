@@ -42,5 +42,11 @@
     "Updated at": "Atualizado em",
     "Total anomalies": "Total de anomalias",
     "Reported by": "Reportado por",
-    "Unknown": "Desconhecido"
+    "Unknown": "Desconhecido",
+    "Configurations": "Configurações",
+    "configuration": "configuração",
+    "configurations": "configurações",
+    "Config name": "Nome configuração",
+    "Config value": "Valor configuração",
+    "Invalid email": "Email invalido"
 }
