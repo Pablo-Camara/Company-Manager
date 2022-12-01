@@ -71,8 +71,9 @@ class User extends Authenticatable
         $recentDocuments = Document::select([
             'id',
             'name',
+            'folder_id',
             'created_at'
-        ]);
+        ])->with('folder');
 
         if (!$this->isAdmin()) {
             $foldersWithPermissions = $this->getFolders()->pluck('id')->toArray();

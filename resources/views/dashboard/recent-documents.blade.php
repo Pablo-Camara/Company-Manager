@@ -7,6 +7,7 @@
   <thead>
     <tr>
       <th scope="col">{{ __('Name') }}</th>
+      <th scope="col">{{ __('Folder') }}</th>
       <th>{{ __('Created at') }}</th>
     </tr>
   </thead>
@@ -15,8 +16,12 @@
     <tr>
       <td>
         <a href="{{ route('document.show', ['id' => $recentDocument->id]) }}">
-            {{ $recentDocument->name }}
+            {{ $recentDocument->name  }}
         </a>
+      </td>
+      <td>
+      <a href="{{ route('document.index', ['folder_id' => $recentDocument->folder->id]) }}">
+        {{ $recentDocument->folder->name }}
       </td>
       <td>{{ $recentDocument->created_at }}</td>
     </tr>
