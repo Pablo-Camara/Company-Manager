@@ -192,6 +192,20 @@ class AnomalyCrudController extends CrudController
             abort(403);
         }
 
+        $physicalSpace = [
+            'name' => 'physical_space_id',
+            'label' => __('Physical space'),
+            'type' => 'select',
+            'entity' => 'physicalSpace'
+        ];
+
+        $equipment = [
+            'name' => 'equipment_id',
+            'label' => __('Equipment'),
+            'type' => 'select',
+            'entity' => 'equipment'
+        ];
+
         $reportedBy = [
             'name' => 'user_id',
             'label' => __('Reported by'),
@@ -218,20 +232,31 @@ class AnomalyCrudController extends CrudController
                     return '#';
                 }
             ];
+
+            $physicalSpace['wrapper'] = [
+                'element' => 'a',
+                'href' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->physicalSpace) {
+                        return route('physical-space.show', ['id' => $entry->physicalSpace->id]);
+                    }
+                    return '#';
+                }
+            ];
+
+            $equipment['wrapper'] = [
+                'element' => 'a',
+                'href' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->equipment) {
+                        return route('equipment.show', ['id' => $entry->equipment->id]);
+                    }
+                    return '#';
+                }
+            ];
         }
         $this->crud->addColumns([
-            [
-                'name' => 'physical_space_id',
-                'label' => __('Physical space'),
-                'type' => 'select',
-                'entity' => 'physicalSpace'
-            ],
-            [
-                'name' => 'equipment_id',
-                'label' => __('Equipment'),
-                'type' => 'select',
-                'entity' => 'equipment'
-            ],
+            $physicalSpace,
+            $equipment,
+            $reportedBy,
             [
                 'name' => 'created_at',
                 'label' => __('Created at')
@@ -240,7 +265,6 @@ class AnomalyCrudController extends CrudController
                 'name' => 'updated_at',
                 'label' => __('Updated at')
             ],
-            $reportedBy,
             [
                 'name' => 'description',
                 'label' => __('Description'),

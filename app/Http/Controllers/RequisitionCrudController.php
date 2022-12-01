@@ -153,6 +153,20 @@ class RequisitionCrudController extends CrudController
             abort(403);
         }
 
+        $physicalSpace = [
+            'name' => 'physical_space_id',
+            'label' => __('Physical space'),
+            'type' => 'select',
+            'entity' => 'physicalSpace'
+        ];
+
+        $equipment = [
+            'name' => 'equipment_id',
+            'label' => __('Equipment'),
+            'type' => 'select',
+            'entity' => 'equipment'
+        ];
+
         $requestedBy = [
             'name' => 'user_id',
             'label' => __('Requested by'),
@@ -173,22 +187,32 @@ class RequisitionCrudController extends CrudController
                     return '#';
                 }
             ];
+
+            $physicalSpace['wrapper'] = [
+                'element' => 'a',
+                'href' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->physicalSpace) {
+                        return route('physical-space.show', ['id' => $entry->physicalSpace->id]);
+                    }
+                    return '#';
+                }
+            ];
+
+            $equipment['wrapper'] = [
+                'element' => 'a',
+                'href' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->equipment) {
+                        return route('equipment.show', ['id' => $entry->equipment->id]);
+                    }
+                    return '#';
+                }
+            ];
         }
 
 
         $this->crud->addColumns([
-            [
-                'name' => 'physical_space_id',
-                'label' => __('Physical space'),
-                'type' => 'select',
-                'entity' => 'physicalSpace'
-            ],
-            [
-                'name' => 'equipment_id',
-                'label' => __('Equipment'),
-                'type' => 'select',
-                'entity' => 'equipment'
-            ],
+            $physicalSpace,
+            $equipment,
             $requestedBy,
             [
                 'name' => 'motive',
