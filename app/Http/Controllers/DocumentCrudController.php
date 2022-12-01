@@ -34,7 +34,7 @@ class DocumentCrudController extends CrudController
         CRUD::setEntityNameStrings(__('Document'), __('Documents'));
 
         $user = backpack_user();
-        if (!$user->hasRole('Admin')) {
+        if (!$user->isAdmin()) {
             $this->crud->denyAccess('create');
             $this->crud->denyAccess('update');
             $this->crud->denyAccess('delete');
@@ -91,11 +91,11 @@ class DocumentCrudController extends CrudController
         $documentId = $this->crud->getCurrentEntryId();
         $document = Document::with('folder')->findOrFail($documentId);
         $user = backpack_user();
-        if (!$user->can($document->folder->name) && !$user->hasRole('Admin')) {
+        if (!$user->can($document->folder->name) && !$user->isAdmin()) {
             abort(403);
         }
 
-        if (!$user->hasRole('Admin')) {
+        if (!$user->isAdmin()) {
             $this->crud->removeAllButtons();
         }
 
@@ -124,7 +124,7 @@ class DocumentCrudController extends CrudController
                 abort(404);
             }
 
-            if (!$user->can($documentCategory->name) && !$user->hasRole('Admin')) {
+            if (!$user->can($documentCategory->name) && !$user->isAdmin()) {
                 abort(403);
             }
             $this->crud->addClause('where', 'folder_id', '=', $documentCategory->id);
@@ -134,7 +134,7 @@ class DocumentCrudController extends CrudController
         $this->crud->addButtonFromView('top', 'filter-document-category', 'filter-document-category', 'end');
 
 
-        if (!$user->hasRole('Admin')) {
+        if (!$user->isAdmin()) {
             $this->crud->addClause('whereIn', 'folder_id', $userPermissions);
         }
 
@@ -216,7 +216,7 @@ class DocumentCrudController extends CrudController
 
     public function downloadDocument(Document $document) {
         $user = backpack_user();
-        if (!$user->can($document->folder->name) && !$user->hasRole('Admin')) {
+        if (!$user->can($document->folder->name) && !$user->isAdmin()) {
             abort(403);
         }
         $disk = Storage::disk('documents');

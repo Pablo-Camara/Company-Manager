@@ -54,12 +54,16 @@ class User extends Authenticatable
         if ($userPermissions === 'not-set') {
             $userPermissions = $this->getPermissions();
         }
-        if ($this->hasRole('Admin')) {
+        if ($this->isAdmin()) {
             $folders = DocumentCategory::all();
         } else {
             $folders = DocumentCategory::whereIn('id', $userPermissions)->get();
         }
 
         return $folders;
+    }
+
+    public function isAdmin() {
+        return $this->hasRole('Admin');
     }
 }

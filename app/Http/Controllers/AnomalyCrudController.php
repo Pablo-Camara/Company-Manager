@@ -139,6 +139,33 @@ class AnomalyCrudController extends CrudController
      */
     public function setupShowOperation()
     {
+        $reportedBy = [
+            'name' => 'user_id',
+            'label' => __('Reported by'),
+            'value' => function($entry) {
+                if ($entry->user) {
+                    return [
+                        $entry->user->name . ' (' . $entry->user->id . ')'
+                    ];
+                }
+
+                return [
+                    __('Unknown')
+                ];
+            }
+        ];
+
+        if (backpack_user()->isAdmin()) {
+            $reportedBy['wrapper'] = [
+                'element' => 'a',
+                'href' => function ($crud, $column, $entry, $related_key) {
+                    if ($entry->user) {
+                        return route('user.show', ['id' => $entry->user->id]);
+                    }
+                    return '#';
+                }
+            ];
+        }
         $this->crud->addColumns([
             [
                 'name' => 'physical_space_id',
@@ -154,30 +181,7 @@ class AnomalyCrudController extends CrudController
                 'name' => 'updated_at',
                 'label' => __('Updated at')
             ],
-            [
-                'name' => 'user_id',
-                'label' => __('Reported by'),
-                'value' => function($entry) {
-                    if ($entry->user) {
-                        return [
-                            $entry->user->name . ' (' . $entry->user->id . ')'
-                        ];
-                    }
-
-                    return [
-                        __('Unknown')
-                    ];
-                },
-                'wrapper' => [
-                    'element' => 'a',
-                    'href' => function ($crud, $column, $entry, $related_key) {
-                        if ($entry->user) {
-                            return route('user.show', ['id' => $entry->user->id]);
-                        }
-                        return '#';
-                    }
-                ]
-            ],
+            $reportedBy,
             [
                 'name' => 'description',
                 'label' => __('Description'),

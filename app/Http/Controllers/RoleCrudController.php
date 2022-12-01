@@ -9,7 +9,7 @@ class RoleCrudController extends ControllersRoleCrudController
     public function setup()
     {
         $user = backpack_user();
-        if (!$user->hasRole('Admin')) {
+        if (!$user->isAdmin()) {
             abort(403);
         }
         parent::setup();

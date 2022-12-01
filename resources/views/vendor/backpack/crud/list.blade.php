@@ -8,7 +8,7 @@
   ];
 
   $user = backpack_user();
-  if (!$user->hasRole('Admin')) {
+  if (!$user->isAdmin()) {
     array_splice($defaultBreadcrumbs, 0, 1);
   }
 

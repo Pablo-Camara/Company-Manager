@@ -20,7 +20,7 @@ class AdminController extends BackpackAdminController
         ];
 
         $user = backpack_user();
-        if (!$user->hasRole('Admin')) {
+        if (!$user->isAdmin()) {
             array_splice($breadcrumbs, 0, 1);
         }
 
