@@ -68,14 +68,16 @@ class AnomalyCrudController extends CrudController
         $this->crud->data['physical_spaces'] = $physicalSpaces;
 
         if ($physicalSpaceId) {
+            $filterByPhysicalSpace = false;
             try {
-                $physicalSpace = PhysicalSpace::find($physicalSpaceId);
-            } catch (\Throwable $th) {
-                abort(404);
-            }
+                $physicalSpace = PhysicalSpace::findOrFail($physicalSpaceId);
+                $filterByPhysicalSpace = true;
+            } catch (\Throwable $th) {}
 
-            $this->crud->addClause('where', 'physical_space_id', '=', $physicalSpace->id);
-            $this->crud->data['physical_space'] = $physicalSpace;
+            if($filterByPhysicalSpace) {
+                $this->crud->addClause('where', 'physical_space_id', '=', $physicalSpace->id);
+                $this->crud->data['physical_space'] = $physicalSpace;
+            }
         }
 
         $this->crud->addButtonFromView('top', 'filter-physical-space', 'filter-physical-space', 'end');
