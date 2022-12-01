@@ -2,8 +2,8 @@
     $documentCategories = $crud->data['folders'] ?? [];
     $selectedCategory = $crud->data['folder'] ?? null;
 @endphp
-<div style="margin: 10px 0 4px 0;">
-    <select class="document-category-filter" name="folder_id">
+<div style="margin: 10px 0 4px 0; ">
+    <select class="document-category-filter" name="folder_id" style="width: 250px">
         <option value="" {{ $selectedCategory ? '' : 'selected' }}></option>
         @foreach($documentCategories as $docCategory)
             <option value="{{ $docCategory->id }}" {{ $selectedCategory &&  $selectedCategory->id === $docCategory->id ? 'selected' : ''  }}>{{ $docCategory->name }}</option>
@@ -13,23 +13,6 @@
 
 @push('after_scripts')
     <script>
-        function removeURLParameter(url, parameter) {
-            var urlparts = url.split('?');
-            if (urlparts.length >= 2) {
-
-                var prefix = encodeURIComponent(parameter) + '=';
-                var pars = urlparts[1].split(/[&;]/g);
-
-                for (var i = pars.length; i-- > 0;) {
-                    if (pars[i].lastIndexOf(prefix, 0) !== -1) {
-                        pars.splice(i, 1);
-                    }
-                }
-
-                return urlparts[0] + (pars.length > 0 ? '?' + pars.join('&') : '');
-            }
-            return url;
-        }
 
         $(document).ready(function() {
             $('.document-category-filter').select2({

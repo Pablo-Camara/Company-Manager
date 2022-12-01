@@ -6,6 +6,7 @@ use App\Http\Requests\AnomalyRequest;
 use App\Mail\AnomalyReport;
 use App\Models\Anomaly;
 use App\Models\Configuration;
+use App\Models\Equipment;
 use App\Models\PhysicalSpace;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -74,7 +75,6 @@ class AnomalyCrudController extends CrudController
 
         $physicalSpaceId = request()->input('physical_space_id');
         $physicalSpaces = PhysicalSpace::all();
-
         $this->crud->data['physical_spaces'] = $physicalSpaces;
 
         if ($physicalSpaceId) {
@@ -91,6 +91,24 @@ class AnomalyCrudController extends CrudController
         }
 
         $this->crud->addButtonFromView('top', 'filter-physical-space', 'filter-physical-space', 'end');
+
+        $equipmentId = request()->input('equipment_id');
+        $equipments = Equipment::all();
+        $this->crud->data['equipments'] = $equipments;
+
+        if ($equipmentId) {
+            $filterByEquipment = false;
+            try {
+                $equipment = Equipment::findOrFail($equipmentId);
+                $filterByEquipment = true;
+            } catch (\Throwable $th) {}
+
+            if($filterByEquipment) {
+                $this->crud->addClause('where', 'equipment_id', '=', $equipment->id);
+                $this->crud->data['equipment'] = $equipment;
+            }
+        }
+        $this->crud->addButtonFromView('top', 'filter-equipment', 'filter-equipment', 'end');
 
         $user = backpack_user();
         if (!$user->isAdmin()) {

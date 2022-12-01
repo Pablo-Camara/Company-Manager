@@ -52,6 +52,17 @@ class EquipmentCrudController extends CrudController
             [
                 'name' => 'description',
                 'label' => __('Description')
+            ],
+            [
+                'name'  => 'anomalies',
+                'label' => __('Total anomalies'),
+                'type'  => 'relationship_count',
+                'wrapper' => [
+                    'element' => 'a',
+                    'href' => function($crud, $column, $entry, $related_key) {
+                        return route('anomaly.index', ['equipment_id' => $entry->id]);
+                    }
+                ]
             ]
         ]);
         /**

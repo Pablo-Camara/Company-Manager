@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RequisitionRequest;
 use App\Mail\Requisition;
 use App\Models\Configuration;
+use App\Models\Equipment;
+use App\Models\PhysicalSpace;
 use App\Models\Requisition as ModelsRequisition;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -74,6 +76,43 @@ class RequisitionCrudController extends CrudController
                 'label' => __('Updated at')
             ],
         ]);
+
+        $physicalSpaceId = request()->input('physical_space_id');
+        $physicalSpaces = PhysicalSpace::all();
+        $this->crud->data['physical_spaces'] = $physicalSpaces;
+
+        if ($physicalSpaceId) {
+            $filterByPhysicalSpace = false;
+            try {
+                $physicalSpace = PhysicalSpace::findOrFail($physicalSpaceId);
+                $filterByPhysicalSpace = true;
+            } catch (\Throwable $th) {}
+
+            if($filterByPhysicalSpace) {
+                $this->crud->addClause('where', 'physical_space_id', '=', $physicalSpace->id);
+                $this->crud->data['physical_space'] = $physicalSpace;
+            }
+        }
+
+        $this->crud->addButtonFromView('top', 'filter-physical-space', 'filter-physical-space', 'end');
+
+        $equipmentId = request()->input('equipment_id');
+        $equipments = Equipment::all();
+        $this->crud->data['equipments'] = $equipments;
+
+        if ($equipmentId) {
+            $filterByEquipment = false;
+            try {
+                $equipment = Equipment::findOrFail($equipmentId);
+                $filterByEquipment = true;
+            } catch (\Throwable $th) {}
+
+            if($filterByEquipment) {
+                $this->crud->addClause('where', 'equipment_id', '=', $equipment->id);
+                $this->crud->data['equipment'] = $equipment;
+            }
+        }
+        $this->crud->addButtonFromView('top', 'filter-equipment', 'filter-equipment', 'end');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

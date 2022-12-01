@@ -138,6 +138,7 @@ return [
         // Backstrap includes jQuery, Bootstrap, CoreUI, PNotify, Popper
         'packages/backpack/base/js/bundle.js',
         'select2/script.js',
+        'helpers/remove-url-parameter-func.js',
 
         // examples (everything inside the bundle, loaded from CDN)
         // 'https://code.jquery.com/jquery-3.4.1.min.js',
