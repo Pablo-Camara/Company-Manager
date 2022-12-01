@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PhysicalSpace extends Model
 {
@@ -34,6 +35,10 @@ class PhysicalSpace extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function anomalies(): HasMany
+    {
+        return $this->hasMany(Anomaly::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

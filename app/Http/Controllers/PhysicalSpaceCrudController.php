@@ -49,6 +49,17 @@ class PhysicalSpaceCrudController extends CrudController
                 'name' => 'space_name',
                 'label' => __('Space name')
             ],
+            [
+                'name'  => 'anomalies',
+                'label' => __('Total anomalies'),
+                'type'  => 'relationship_count',
+                'wrapper' => [
+                    'element' => 'a',
+                    'href' => function($crud, $column, $entry, $related_key) {
+                        return route('anomaly.index', ['physical_space_id' => $entry->id]);
+                    }
+                ]
+            ]
         ]);
 
         /**
