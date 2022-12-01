@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AnomalyRequest;
+use App\Models\PhysicalSpace;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -59,6 +60,25 @@ class AnomalyCrudController extends CrudController
                 'label' => __('Description')
             ],
         ]);
+
+
+        $physicalSpaceId = request()->input('physical_space_id');
+        $physicalSpaces = PhysicalSpace::all();
+
+        $this->crud->data['physical_spaces'] = $physicalSpaces;
+
+        if ($physicalSpaceId) {
+            try {
+                $physicalSpace = PhysicalSpace::find($physicalSpaceId);
+            } catch (\Throwable $th) {
+                abort(404);
+            }
+
+            $this->crud->addClause('where', 'physical_space_id', '=', $physicalSpace->id);
+            $this->crud->data['physical_space'] = $physicalSpace;
+        }
+
+        $this->crud->addButtonFromView('top', 'filter-physical-space', 'filter-physical-space', 'end');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
